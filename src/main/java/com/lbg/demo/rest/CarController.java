@@ -1,68 +1,65 @@
 package com.lbg.demo.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lbg.demo.domain.Car;
+import com.lbg.demo.services.CarService;
 
 @RestController
 public class CarController {
 
-	private List<Car> cars = new ArrayList<>();
+//	i could input @Autowired in here but in this case im user the private hero service call and add .service on all of them 
+
+	private CarService service;
+
+	public CarController(CarService service) {
+		super();
+		this.service = service;
+	}
 
 	@PostMapping("/create")
-	public ResponseEntity<Car> createCar(@RequestBody Car car) {
-		this.cars.add(car);
-		Car newCar = this.cars.get(this.cars.size() - 1);
-		return new ResponseEntity<Car>(newCar, HttpStatus.CREATED);
+	public ResponseEntity<Car> createCar(@RequestBody Car newCar) {
+		return this.service.createCar(newCar);
 
 	}
 
 	@GetMapping("/get")
-	public ResponseEntity<List<Car>> getCars() {
-		return ResponseEntity.ok(cars);
+	public List<Car> getCars() {
+		return this.service.getCars();
 
 	}
 
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Car> getCar(@PathVariable int id) {
-		if (id < 0 || id >= this.cars.size()) {
 
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		Car found = this.cars.get(id);
-		return ResponseEntity.ok(found);
+		return this.service.getCar(id);
+
 	}
 
-	@DeleteMapping("/deleteAll")
-	public String deleteCar(@RequestBody Car removeCar) {
-		this.cars.clear();
-		return cars.toString();
-	}
+//	@DeleteMapping("/deleteAll")
+//	public String deleteCars(@RequestBody Car removeCar) {
+//		return this.service.deleteCars(removeCar);
+//
+//	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Car> deleteCar(@PathVariable int id) {
-		if (id < 0 || id >= this.cars.size()) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		Car removed = this.cars.remove(id);
-		return ResponseEntity.ok(removed);
+	public boolean deleteCar(@PathVariable int id) {
+		return this.service.deleteCar(id);
 
 	}
 
-	@PutMapping("/update/{id}")
-	public Car updateCar(@PathVariable int id, @RequestBody Car newCar) {
-		return this.cars.set(id, newCar);
+	@PatchMapping("/update/{id}")
+	public ResponseEntity<Car> updateCar(@PathVariable int id, @RequestBody Car newCar) {
+		return this.service.updateCar(id, newCar);
 
 	}
 
