@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Car {
@@ -13,6 +14,17 @@ public class Car {
 	private Integer id;
 	private String make;
 	private String model;
+
+	@ManyToOne
+	private Person person;
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
 
 	public Car() {
 		super();

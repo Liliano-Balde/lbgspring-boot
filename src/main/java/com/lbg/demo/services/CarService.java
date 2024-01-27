@@ -58,7 +58,7 @@ public class CarService {
 		Optional<Car> found = this.repo.findById(id);
 
 		if (found.isEmpty()) {
-			return new ResponseEntity<Car>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
 		Car existing = found.get();
