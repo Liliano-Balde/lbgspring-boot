@@ -43,10 +43,10 @@ public class CarService {
 		return ResponseEntity.ok(body);
 	}
 
-//	public String deleteCars(Car removeCar) {
-//		this.cars.clear();
-//		return cars.toString();
-//	}
+	public String deleteCars() {
+		this.repo.deleteAll();;
+		return repo.toString();
+	}
 
 	public boolean deleteCar(int id) {
 		this.repo.deleteById(id);

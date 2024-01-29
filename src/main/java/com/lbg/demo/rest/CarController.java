@@ -45,11 +45,10 @@ public class CarController {
 
 	}
 
-//	@DeleteMapping("/deleteAll")
-//	public String deleteCars(@RequestBody Car removeCar) {
-//		return this.service.deleteCars(removeCar);
-//
-//	}
+	@DeleteMapping("/deleteAll")
+	public ResponseEntity<String> deleteAllCars() {
+		return ResponseEntity.ok(service.deleteCars());
+	}
 
 	@DeleteMapping("/delete/{id}")
 	public boolean deleteCar(@PathVariable int id) {
