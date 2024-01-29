@@ -1,5 +1,7 @@
 package com.lbg.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +17,7 @@ public class Car {
 	private String make;
 	private String model;
 
+	@JsonBackReference
 	@ManyToOne
 	private Person person;
 

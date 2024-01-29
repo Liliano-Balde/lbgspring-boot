@@ -63,4 +63,10 @@ public class CarController {
 
 	}
 
+//	queries, to check monday if its functional
+//	@GetMapping("/byMake/{make}")
+//	public List<Car> getCarsByMake(@PathVariable String make) {
+//		return this.service.findCarsByMake(make);
+//	}
+
 }

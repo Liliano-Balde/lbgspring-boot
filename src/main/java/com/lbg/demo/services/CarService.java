@@ -74,4 +74,10 @@ public class CarService {
 		return ResponseEntity.ok(updated);
 	}
 
+//	queries, to check monday if its functional
+//	public List<Car> findCarsByMake(String make) {
+//		// Find cars by make using a derived query
+//		return repo.findByMakeIgnoreCase(make);
+//	}
+
 }
